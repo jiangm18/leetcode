@@ -1,0 +1,44 @@
+class Solution(object):
+    def fourSum(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: List[List[int]]
+        """
+        res = []
+        if nums == None or len(nums)<4:
+            return res
+        nums.sort()
+        length = len(nums)
+        for i in range(length-3):
+            if (i == 0 or nums[i] > nums[i-1]):
+                temp = self.threeSum(nums[i+1 : length], target - nums[i])
+                for j in range(len(temp)):
+                    temp[j].append(nums[i])
+                res.extend(temp)
+        return res
+                        
+    def threeSum(self, nums, target):
+        res = []
+        length = len(nums)
+        for i in range(length-2):
+            if (i == 0 or nums[i] > nums[i-1]):
+                begin = i + 1
+                end = length - 1
+                while(begin<end):
+                    if(nums[i] + nums[begin] + nums[end] == target):
+                        res.append([nums[i],nums[begin],nums[end]])
+                        while(begin < end and nums[begin] == nums[begin+1]):
+                            begin = begin + 1
+                        while(begin < end and nums[end] == nums[end-1]):
+                            end = end - 1
+                        begin = begin + 1
+                        end = end - 1
+                    else:
+                        if nums[i] + nums[begin] + nums[end] > target:
+                            end = end - 1
+                        else:
+                            begin = begin + 1
+        return res
+a = Solution()
+a.fourSum([-1,0,1,2,-1,-4],-1)
