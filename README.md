@@ -1,0 +1,1 @@
+these are the code I write about some problems on leetcode
